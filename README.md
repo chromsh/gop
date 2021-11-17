@@ -1,7 +1,9 @@
 # gop
-Converting golang primitive data types to pointers.
+Converting golang primitive data types to pointers. And vice versa.
 
 # Usage
+
+## to pointer
 
 ```go
 import (
@@ -23,6 +25,30 @@ func main() {
 		Age: gop.Int(100),
 	}
 	...
+}
+```
+
+## from pointer
+
+```go
+import (
+	"github.com/chromsh/gop"
+)
+
+type Request struct {
+	Title *string
+	Size *int
+}
+
+func main() {
+	...
+	req := Request{}
+	err := json.Unmarshal(&req, body)
+	if err != nil {
+		panic(err)
+	}
+	title := gop.StringVal(req.Title)
+	size := gop.IntVal(req.Size)
 }
 ```
 
